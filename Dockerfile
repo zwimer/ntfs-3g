@@ -7,14 +7,11 @@ RUN git clone https://github.com/tuxera/ntfs-3g.git
 
 ENV AFL_USE_ASAN=1
 WORKDIR /ntfs-3g
-RUN ./autogen.sh && CC=afl-clang-lto CFLAGS="-O3" CXX=afl-clang-lto++ RANLIB=llvm-ranlib-12 AR=llvm-ar-12 ./configure --enable-shared=no
-RUN make -j8
+RUN ./autogen.sh && CC=afl-clang-lto CFLAGS="-O3" CXX=afl-clang-lto++ RANLIB=llvm-ranlib-14 AR=llvm-ar-14 ./configure --enable-shared=no
+RUN make -j$(nproc)
 
 
-FROM aflplusplus/aflplusplus
+FROM ubuntu:20.04
 COPY --from=builder /ntfs-3g/src/ntfs-3g /
 RUN mkdir -p /mount
-
-WORKDIR /
-# CMD ["afl-fuzz", "-i", "/testsuite", "-o", "/out", "/ntfs-3g", "@@", "/mount"]
 
