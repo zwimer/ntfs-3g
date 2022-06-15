@@ -11,7 +11,7 @@ RUN ./autogen.sh && CC=afl-clang-lto CFLAGS="-O3" CXX=afl-clang-lto++ RANLIB=llv
 RUN make -j$(nproc)
 
 
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 COPY --from=builder /ntfs-3g/src/ntfs-3g /
 RUN mkdir -p /mount
 
