@@ -1,7 +1,8 @@
-duration: 90
+duration: 60
 project: mayhem-target-ntfs-3g
 target: ntfs-3g
 cmds:
   - cmd: /ntfs-3g @@ /mount
     afl: true
-
+testsuite:
+  - https://mayhem.forallsecure.com/zwimer/ntfs-3g/ntfs-3g/testsuite.tar

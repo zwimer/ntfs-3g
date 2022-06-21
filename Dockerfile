@@ -10,12 +10,6 @@ WORKDIR /ntfs-3g
 RUN ./autogen.sh && CC=afl-clang-lto CFLAGS="-O3" CXX=afl-clang-lto++ RANLIB=llvm-ranlib-14 AR=llvm-ar-14 ./configure --enable-shared=no
 RUN make -j$(nproc)
 
-
-FROM aflplusplus/aflplusplus
+FROM FROM ubuntu:22.04
 COPY --from=builder /ntfs-3g/src/ntfs-3g /
-RUN mkdir /mount /testsuite /out
-COPY smol.img /testsuite
-
-# CMD ["afl-fuzz", "-i", "/testsuite", "-o", "/out", "/ntfs-3g", "@@", "/mount"]
-ENTRYPOINT ["afl-fuzz", "-i", "/testsuite", "-o", "/out"]
-CMD ["/ntfs-3g", "@@", "/mount"]
+RUN mkdir /mount
