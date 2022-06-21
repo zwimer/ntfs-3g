@@ -16,4 +16,6 @@ COPY --from=builder /ntfs-3g/src/ntfs-3g /
 RUN mkdir /mount /testsuite /out
 COPY smol.img /testsuite
 
-CMD ["afl-fuzz", "-i", "/testsuite", "-o", "/out", "/ntfs-3g", "@@", "/mount"]
+# CMD ["afl-fuzz", "-i", "/testsuite", "-o", "/out", "/ntfs-3g", "@@", "/mount"]
+ENTRYPOINT ["afl-fuzz", "-i", "/testsuite", "-o", "/out"]
+CMD ["/ntfs-3g", "@@", "/mount"]
