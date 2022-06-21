@@ -4,5 +4,8 @@ target: ntfs-3g
 cmds:
   - cmd: /ntfs-3g @@ /mount
     afl: true
+    max_length: 1048576
+    memory_limit: 8192
+    timeout: 20
 testsuite:
   - https://mayhem.forallsecure.com/zwimer/ntfs-3g/ntfs-3g/testsuite.tar

@@ -13,3 +13,5 @@ RUN make -j$(nproc)
 FROM ubuntu:22.04
 COPY --from=builder /ntfs-3g/src/ntfs-3g /
 RUN mkdir /mount
+
+CMD ["/ntfs-3g"]
